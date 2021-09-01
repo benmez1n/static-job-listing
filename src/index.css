@@ -1,0 +1,113 @@
+@import url("https://fonts.googleapis.com/css2?family=Spartan:wght@500;700&display=swap");
+:root{
+  --primary : hsl(180, 29%, 50%);
+  --background:hsl(180, 52%, 96%);
+  --filter-tabletes : hsl(180, 31%, 95%);
+  --job-txt : hsl(180, 14%, 20%);
+  --available-txt : hsl(180, 8%, 52%);
+}
+*{box-sizing: border-box;margin:0;padding:0}
+body{font-family: Spartan; font-size: 15px;user-select: none;}
+span{display:inline-block;margin-right:10px;}
+.container{width:1170px;margin :0 auto;}
+@media (max-width:769px){
+  .container{width:90%;}
+}
+.loading{
+  position: fixed;
+  top:50%;
+  left:45%;
+}
+.header{
+  height: 150px;
+  width:100%;
+  background: var(--primary) url(images/bg-header-desktop.svg);
+}
+.jobsList{
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 2rem;
+  padding:30px 0 80px;
+  background-color: var(--background);
+}
+.filterContainer,.jobsItem{
+  width:900px;
+  margin : 0 auto;
+  padding:20px;
+  background-color:#FFF;
+  border-radius: 5px;
+  box-shadow: 2px 4px 6px hsl(180, 3%, 63%);
+}
+.jobsItem{
+  display: flex;
+  justify-content: space-between;
+}
+.jobsItem.featuredJob{border-left: 5px solid var(--primary);}
+.jobInfo{display: flex;place-items: center;}
+.jobInfo img {
+  margin-right : 20px;
+}
+.info div:not(:last-child){
+    margin-bottom:8px;
+}
+.company{color:var(--primary);font-size: 14px;font-weight: 500;}
+.new,.featured{
+  color:#FFF;
+  text-transform: uppercase;
+  padding:4px 6px 2px;
+  border-radius: 8px;
+  font-size: 10px;
+}
+.new{background-color: var(--primary);}
+.featured{ background-color: var(--job-txt);}
+.position span{
+  color:var(--job-txt);
+  font-weight: 700;
+  cursor: pointer;
+}
+.position span:hover{color: var(--primary);}
+.timeThings{color:var(--available-txt);font-size: 11px;}
+.skills{margin-top:20px}
+.skills span,.filterBtn{
+  padding:8px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 700px;
+  color:var(--primary);
+  background-color: var(--filter-tabletes) ;
+}
+.skills span:hover{
+  cursor: pointer; 
+  background-color: var(--primary);
+  color:#FFF
+}
+.filterContainer{
+  top:-50px;
+  display: flex;
+  position: relative;
+}
+.filterContainer >span{display:flex;}
+.filterBtn{
+  margin:0;
+  border-radius: 3px 0 0 3px;
+}
+.remove{
+  width:30px;
+  height:30px;
+  background: var(--primary) url('images/icon-remove.svg') no-repeat center;
+}
+.remove:hover{
+  cursor: pointer;
+  background-color: var(--job-txt);
+}
+.clear{
+  position:absolute;
+  margin-top:6px;
+  left:93%;
+  cursor: pointer;
+  color:var(--job-txt)
+}
+.clear:hover{
+  color:var(--primary);
+  text-decoration: underline;
+}
