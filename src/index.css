@@ -10,9 +10,7 @@
 body{font-family: Spartan; font-size: 15px;user-select: none;}
 span{display:inline-block;margin-right:10px;}
 .container{width:1170px;margin :0 auto;}
-@media (max-width:769px){
-  .container{width:90%;}
-}
+
 .loading{
   position: fixed;
   top:50%;
@@ -110,4 +108,22 @@ span{display:inline-block;margin-right:10px;}
 .clear:hover{
   color:var(--primary);
   text-decoration: underline;
+}
+@media (max-width:769px){
+  .container{width:98%;}
+  .header{background: var(--primary) url(images/bg-header-mobile.svg);}
+  .jobsList{width:100%;}
+  .filterContainer,.jobsItem{width:90%;flex-direction: column;}
+  .jobInfo{
+    flex-direction: column;
+    place-items:flex-start;
+    border-bottom:1px solid var(--available-txt);
+    padding-bottom:20px;
+  }
+  .jobInfo img{
+    margin:-40px 0 10px;
+    width:80px;
+  }
+  .skills span{margin-bottom: 8px;}
+  .clear{position: static;}
 }
