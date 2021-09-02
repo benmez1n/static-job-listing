@@ -5,36 +5,61 @@ const JobsList = () => {
     const [jobs , setJobs] = useState([])
     const [isLoading , setIsLoading ] = useState(true);
     const [filterArr,setFilterArr] = useState([]);
-    const [newJobs,setNewJobs] = useState(data);
-    const clickHandler = (e) =>{
-        if(filterArr.includes(e)) return
-        else {
-            setFilterArr([...filterArr,e]);
-            setNewJobs(newJobs.filter((item)=>{
-                    const skills = [...item.tools,...item.languages,item.role,item.level];
-                    return  skills.includes(e);
-                }    
-            ))
-        }
-    }
-
-    const removeHandler = (id)=>{
-        setFilterArr(filterArr.filter((item,index)=>{return (index !== id)}))
-        setJobs(newJobs);
-    }
-    const clearHandler = (e)=>{
-        e.preventDefault();
-        setJobs(data);
-        setFilterArr([]);
-    }
 
     useEffect(()=>{
         setJobs(data)
         setIsLoading(false)
     },[])
-    useEffect(()=>{
-        setJobs(newJobs)
-    },[newJobs])
+    
+    //reusable functions
+    const checkSkills = ({role,level,tools,languages}) => {
+        let  skills = [role,level];
+        if(tools)skills = [...tools,...skills]
+        if(languages)skills = [...languages,...skills]
+        return skills;
+    }
+    const addFilter = ({role,level,tools,languages},item)=>{
+        const filtred = [...filterArr,item]
+        const skills = checkSkills({role,level,tools,languages});
+        return filtred.every((skill) => skills.includes(skill))
+    } 
+    const removeFilter = ({role,level,tools,languages},filtred) => {
+        if(filtred.length === 0) return true;
+        else{
+            const skills = checkSkills({role,level,tools,languages});
+            return filtred.every((skill) => skills.includes(skill))
+        }  
+    }
+
+    //Handlers
+    //for add filter in the filter items
+    const clickHandler = (e) =>{
+        if(filterArr.includes(e)){return}
+        setFilterArr([...filterArr,e]);
+        setJobs(data.filter((item)=>{return addFilter({...item},e)}))     
+    }
+
+     //for remove button in the filter items 
+    const removeHandler = (id)=>{
+        let filtred,moreFiltre,lastFilter;
+        setFilterArr(filterArr.filter((item,index)=>{return (index !== id)}))
+        if(id !== 0){
+            filtred = filterArr.slice(0,id);
+            moreFiltre = filtred.slice(id+1,filterArr.length)
+            lastFilter = [...filtred,...moreFiltre]
+        }else{
+            lastFilter = filterArr.slice(id+1,filterArr.length)
+        }
+        setJobs(data.filter((item)=>{return removeFilter({...item},lastFilter)}));  
+    }
+
+    //for clear button in the filter
+    const clearHandler = ()=>{
+        setJobs(data);
+        setFilterArr([]);
+    }
+
+
     return ( 
         <div className="jobsList">
             {isLoading && <h1 className="loading">Loading...</h1>}

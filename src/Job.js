@@ -1,3 +1,4 @@
+//component for every job in the list 
 const Job = ({id,company,logo,newJob,featured,position,
     role,level,postedAt,contract,location,languages,tools,clickHandler}) => {
     return (
